@@ -1,0 +1,22 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "bamazon homework",
+  "main": "bamazoncustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjbenefiel/Bamazon.git"
+  },
+  "author": "Michael Benefiel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjbenefiel/Bamazon/issues"
+  },
+  "homepage": "https://github.com/mjbenefiel/Bamazon#readme",
+  "dependencies": {
+    "mysql": "^2.16.0"
+  }
+}
