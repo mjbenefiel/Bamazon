@@ -1,4 +1,4 @@
--- Create a database called 'Bamazon' and switch into it for this activity --
+DROP DATABASE IF EXISTS bamazon;
 CREATE DATABASE bamazon;
 USE bamazon;
 
