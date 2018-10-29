@@ -1,24 +1,22 @@
 // Pull in required dependencies
 var inquirer = require('inquirer');
 var mysql = require('mysql');
-require('dotenv').config()
 
 // Define the MySQL connection parameters
 var connection = mysql.createConnection({
-	host: process.env.BAMAZON_HOST,
-	port: 3306,
+    host: 'localhost',
+    port: 3306,
+    user: 'mjbenefiel',
+    password: '****',
+    database: 'bamazon'
+})
 
-	// Your username
-	username: process.env.BAMAZON_USER,
+connection.connect(function (err) {
+    if (err) throw err
+    validateInput()
+})
 
-	// Your password
-	password: process.env.BAMAZON_PASS,
-	database: 'bamazon'
-});
 
-console.log("hello")
-
-/*
 
 // validateInput makes sure that the user is supplying only positive integers for their inputs
 function validateInput(value) {
@@ -40,7 +38,7 @@ function promptUserPurchase() {
 	inquirer.prompt([
 		{
 			type: 'input',
-			name: 'item_id',
+			name: 'product_id',
 			message: 'Please enter the Item ID which you would like to purchase.',
 			validate: validateInput,
 			filter: Number
@@ -53,15 +51,15 @@ function promptUserPurchase() {
 			filter: Number
 		}
 	]).then(function(input) {
-		// console.log('Customer has selected: \n    item_id = '  + input.item_id + '\n    quantity = ' + input.quantity);
+		// console.log('Customer has selected: \n    product_id = '  + input.product_id + '\n    quantity = ' + input.quantity);
 
-		var item = input.item_id;
+		var item = input.product_id;
 		var quantity = input.quantity;
 
 		// Query db to confirm that the given item ID exists in the desired quantity
 		var queryStr = 'SELECT * FROM products WHERE ?';
 
-		connection.query(queryStr, {item_id: item}, function(err, data) {
+		connection.query(queryStr, {product_id: item}, function(err, data) {
 			if (err) throw err;
 
 			// If the user has selected an invalid item ID, data attay will be empty
@@ -82,7 +80,7 @@ function promptUserPurchase() {
 					console.log('Congratulations, the product you requested is in stock! Placing order!');
 
 					// Construct the updating query string
-					var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE item_id = ' + item;
+					var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE product_id = ' + item;
 					// console.log('updateQueryStr = ' + updateQueryStr);
 
 					// Update the inventory
@@ -125,7 +123,7 @@ function displayInventory() {
 		var strOut = '';
 		for (var i = 0; i < data.length; i++) {
 			strOut = '';
-			strOut += 'Item ID: ' + data[i].item_id + '  //  ';
+			strOut += 'Product ID: ' + data[i].product_id + '  //  ';
 			strOut += 'Product Name: ' + data[i].product_name + '  //  ';
 			strOut += 'Department: ' + data[i].department_name + '  //  ';
 			strOut += 'Price: $' + data[i].price + '\n';
@@ -151,4 +149,3 @@ function runBamazon() {
 // Run the application logic
 runBamazon();
 
-*/
