@@ -1,13 +1,14 @@
 // Pull in required dependencies
 var inquirer = require('inquirer');
 var mysql = require('mysql');
+require('dotenv').config()
 
 // Define the MySQL connection parameters
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: process.env.BAMAZON_HOST,
     port: 3306,
-    user: 'mjbenefiel',
-    password: '****',
+    user: process.env.BAMAZON_USER,
+    password: process.env.BAMAZON_PASS, ////////////NEED TO FIX .ENV FILE!!!///////////////
     database: 'bamazon'
 })
 
