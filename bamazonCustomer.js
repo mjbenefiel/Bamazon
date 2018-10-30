@@ -89,10 +89,9 @@ function promptUserPurchase() {
 						if (err) throw err;
 
 						console.log('Your oder has been placed! Your total is $' + productData.price * quantity);
-						console.log('Thank you for shopping with us!');
+						console.log('Thank you for shopping with Bamazon.');
 						console.log("\n---------------------------------------------------------------------\n");
-
-						// End the database connection
+												// End the database connection
 						connection.end();
 					})
 				} else {
@@ -101,6 +100,7 @@ function promptUserPurchase() {
 					console.log("\n---------------------------------------------------------------------\n");
 
 					displayInventory();
+					
 				}
 			}
 		})
