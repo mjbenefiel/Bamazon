@@ -17,7 +17,34 @@ connection.connect(function (err) {
     validateInput()
 })
 
+function displayInventory() {
+		// Construct the db query string
+	queryStr = 'SELECT * FROM products';
 
+	// Make the db query
+	connection.query(queryStr, function(err, data) {
+		if (err) throw err;
+
+		console.log('Existing Inventory: ');
+		console.log('...................\n');
+
+		var strOut = '';
+		for (var i = 0; i < data.length; i++) {
+			strOut = '';
+			strOut += 'Product ID: ' + data[i].product_id + '  //  ';
+			strOut += 'Product Name: ' + data[i].product_name + '  //  ';
+			strOut += 'Department: ' + data[i].department_name + '  //  ';
+			strOut += 'Price: $' + data[i].price + '\n';
+
+			console.log(strOut);
+		}
+
+	  	console.log("---------------------------------------------------------------------\n");
+
+	  	//Prompt the user for item/quantity they would like to purchase
+	  	promptUserPurchase();
+	})
+}
 
 // validateInput makes sure that the user is supplying only positive integers for their inputs
 function validateInput(value) {
@@ -27,7 +54,7 @@ function validateInput(value) {
 	if (integer && (sign === 1)) {
 		return true;
 	} else {
-		return 'Please enter a whole non-zero number.';
+		return 'Please enter a whole number greater than zero.';
 	}
 }
 
@@ -78,7 +105,7 @@ function promptUserPurchase() {
 
 				// If the quantity requested by the user is in stock
 				if (quantity <= productData.stock_quantity) {
-					console.log('Congratulations, the product you requested is in stock! Placing order!');
+					console.log('Your item is in stock! Placing order now.');
 
 					// Construct the updating query string
 					var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE product_id = ' + item;
@@ -88,14 +115,14 @@ function promptUserPurchase() {
 					connection.query(updateQueryStr, function(err, data) {
 						if (err) throw err;
 
-						console.log('Your oder has been placed! Your total is $' + productData.price * quantity);
+						console.log('Success! Your total is $' + productData.price * quantity);
 						console.log('Thank you for shopping with Bamazon.');
 						console.log("\n---------------------------------------------------------------------\n");
 												// End the database connection
 						connection.end();
 					})
 				} else {
-					console.log('Sorry, there is not enough product in stock, your order can not be placed as is.');
+					console.log('Sorry, there is not enough product in stock, your order cannot be placed.');
 					console.log('Please modify your order.');
 					console.log("\n---------------------------------------------------------------------\n");
 
@@ -108,37 +135,6 @@ function promptUserPurchase() {
 }
 
 // displayInventory will retrieve the current inventory from the database and output it to the console
-function displayInventory() {
-	// console.log('___ENTER displayInventory___');
-
-	// Construct the db query string
-	queryStr = 'SELECT * FROM products';
-
-	// Make the db query
-	connection.query(queryStr, function(err, data) {
-		if (err) throw err;
-
-		console.log('Existing Inventory: ');
-		console.log('...................\n');
-
-		var strOut = '';
-		for (var i = 0; i < data.length; i++) {
-			strOut = '';
-			strOut += 'Product ID: ' + data[i].product_id + '  //  ';
-			strOut += 'Product Name: ' + data[i].product_name + '  //  ';
-			strOut += 'Department: ' + data[i].department_name + '  //  ';
-			strOut += 'Price: $' + data[i].price + '\n';
-
-			console.log(strOut);
-		}
-
-	  	console.log("---------------------------------------------------------------------\n");
-
-	  	//Prompt the user for item/quantity they would like to purchase
-	  	promptUserPurchase();
-	})
-}
-
 // runBamazon will execute the main application logic
 function runBamazon() {
 	// console.log('___ENTER runBamazon___');
