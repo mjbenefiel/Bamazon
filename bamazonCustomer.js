@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
     host: process.env.BAMAZON_HOST,
     port: 3306,
     user: process.env.BAMAZON_USER,
-    password: process.env.BAMAZON_PASS, ////////////NEED TO FIX .ENV FILE!!!///////////////
+    password: process.env.BAMAZON_PASS,
     database: 'bamazon'
 })
 
