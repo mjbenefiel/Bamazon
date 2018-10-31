@@ -7,10 +7,12 @@ CREATE TABLE products (
 	product_id INTEGER (11) AUTO_INCREMENT NOT NULL,
 	product_name VARCHAR(90) NOT NULL,
 	department_name VARCHAR(90) NOT NULL,
-	price DECIMAL(6,2) NOT NULL,
+	price DECIMAL(6,3) NOT NULL,
 	stock_quantity INTEGER(10) NOT NULL,
 	PRIMARY KEY (product_id)
 );
+
+
 
 -- Insert data into the 'products' table --
 INSERT INTO products (product_name, department_name, price, stock_quantity)

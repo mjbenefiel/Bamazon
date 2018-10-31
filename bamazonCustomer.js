@@ -5,30 +5,30 @@ require('dotenv').config()
 
 // Define the MySQL connection parameters
 var connection = mysql.createConnection({
-    host: process.env.BAMAZON_HOST,
-    port: 3306,
-    user: process.env.BAMAZON_USER,
-    password: process.env.BAMAZON_PASS,
-    database: 'bamazon'
+	host: process.env.BAMAZON_HOST,
+	port: 3306,
+	user: process.env.BAMAZON_USER,
+	password: process.env.BAMAZON_PASS,
+	database: 'bamazon'
 })
 
 connection.connect(function (err) {
-    if (err) throw err
-    validateInput()
+	if (err) throw err
+	validateInput()
 })
 
 function displayInventory() {
-		// Construct the db query string
+	// Construct the db query string
 	queryStr = 'SELECT * FROM products';
 
 	// Make the db query
-	connection.query(queryStr, function(err, data) {
+	connection.query(queryStr, function (err, data) {
 		if (err) throw err;
 
 		console.log('Existing Inventory: ');
 		console.log('...................\n');
 
-		var strOut = '';
+		
 		for (var i = 0; i < data.length; i++) {
 			strOut = '';
 			strOut += 'Product ID: ' + data[i].product_id + '  //  ';
@@ -39,10 +39,10 @@ function displayInventory() {
 			console.log(strOut);
 		}
 
-	  	console.log("---------------------------------------------------------------------\n");
+		console.log("---------------------------------------------------------------------\n");
 
-	  	//Prompt the user for item/quantity they would like to purchase
-	  	promptUserPurchase();
+		//Prompt the user for item/quantity they would like to purchase
+		promptUserPurchase();
 	})
 }
 
@@ -63,8 +63,7 @@ function promptUserPurchase() {
 	// console.log('___ENTER promptUserPurchase___');
 
 	// Prompt the user to select an item
-	inquirer.prompt([
-		{
+	inquirer.prompt([{
 			type: 'input',
 			name: 'product_id',
 			message: 'Please enter the Item ID which you would like to purchase.',
@@ -78,7 +77,7 @@ function promptUserPurchase() {
 			validate: validateInput,
 			filter: Number
 		}
-	]).then(function(input) {
+	]).then(function (input) {
 		// console.log('Customer has selected: \n    product_id = '  + input.product_id + '\n    quantity = ' + input.quantity);
 
 		var item = input.product_id;
@@ -87,7 +86,9 @@ function promptUserPurchase() {
 		// Query db to confirm that the given item ID exists in the desired quantity
 		var queryStr = 'SELECT * FROM products WHERE ?';
 
-		connection.query(queryStr, {product_id: item}, function(err, data) {
+		connection.query(queryStr, {
+			product_id: item
+		}, function (err, data) {
 			if (err) throw err;
 
 			// If the user has selected an invalid item ID, data attay will be empty
@@ -112,13 +113,13 @@ function promptUserPurchase() {
 					// console.log('updateQueryStr = ' + updateQueryStr);
 
 					// Update the inventory
-					connection.query(updateQueryStr, function(err, data) {
+					connection.query(updateQueryStr, function (err, data) {
 						if (err) throw err;
 
 						console.log('Success! Your total is $' + productData.price * quantity);
 						console.log('Thank you for shopping with Bamazon.');
 						console.log("\n---------------------------------------------------------------------\n");
-												// End the database connection
+						// End the database connection
 						connection.end();
 					})
 				} else {
@@ -127,7 +128,7 @@ function promptUserPurchase() {
 					console.log("\n---------------------------------------------------------------------\n");
 
 					displayInventory();
-					
+
 				}
 			}
 		})
@@ -145,4 +146,3 @@ function runBamazon() {
 
 // Run the application logic
 runBamazon();
-
