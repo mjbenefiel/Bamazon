@@ -1,5 +1,7 @@
 var inquirer = require("inquirer");
 var mysql = require("mysql");
+var figlet = require("figlet");
+var chalk = require("chalk");
 require("dotenv").config()
 
 var connection = mysql.createConnection({
@@ -15,6 +17,20 @@ connection.connect(function (err) {
     validateInput()
 })
 
+let bamazonFig = "Bamazon";
+figlet(bamazonFig, function (err, data) {
+	if (err) {
+		console.log('Something went wrong...');
+		console.dir(err);
+		return;
+	}
+	console.log(chalk.hex('#008080')(data));
+	//Welcome screen text.
+	console.log(chalk.hex('8EFF0D')("Welcome to Bamazon."));
+	console.log(chalk.hex('8EFF0D')("See the same 10 items, every day.\n"));
+
+});
+
 function displayInventory() {
     queryStr = 'SELECT * FROM products';
 
@@ -29,8 +45,8 @@ function displayInventory() {
         for (var i = 0; i < data.length; i++) {
             var strOut = '';
             strOut += 'Product ID: ' + data[i].product_id + ' // ';
-            strOut += 'Product Name: ' + data[i].product_name + ' //';
-            strOut += 'Department: ' + data[i].department_name + ' //';
+            strOut += 'Product Name: ' + data[i].product_name + ' // ';
+            strOut += 'Department: ' + data[i].department_name + ' // ';
             strOut += 'Price: $' + data[i].price + '\n';
 
 
@@ -74,13 +90,13 @@ function promptPurchase() {
 
 
                 if (data.length === 0) {
-                    console.log("Error: Please select valid item ID")
+                    console.log("\nError: Please select valid item ID\n")
                     displayInventory();
                 } else {
                     var productData = data[0];
 
                     if (quantity <= productData.stock_quantity) {
-                        console.log('This item is in stock. Placing order now');
+                        console.log('\nThis item is in stock. Placing order now.\n');
 
                         var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE product_id = ' + item;
 
@@ -89,7 +105,7 @@ function promptPurchase() {
 
 
                             console.log('Your total is $' + truncateNumber(productData.price * quantity, 2));
-                            console.log('Thank you for shopping with Bamazon.');
+                            console.log('\nThank you for shopping with Bamazon.');
                             console.log("\n---------------------------------------------------------------------\n");
 
                             connection.end()
@@ -98,7 +114,7 @@ function promptPurchase() {
                         });
 
                     } else {
-                        console.log('Sorry, there is not enough product in stock, your order cannot be placed.');
+                        console.log('\nSorry, your cannot be placed. There is not enough product in stock.\n');
                         console.log('Please modify your order.');
                         console.log("\n---------------------------------------------------------------------\n");
 
