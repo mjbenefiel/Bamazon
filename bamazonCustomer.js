@@ -24,10 +24,10 @@ figlet(bamazonFig, function (err, data) {
 		console.dir(err);
 		return;
 	}
-	console.log(chalk.hex('#008080')(data));
+	console.log(chalk.hex('#146eb4')(data));
 	//Welcome screen text.
-	console.log(chalk.hex('8EFF0D')("Welcome to Bamazon."));
-	console.log(chalk.hex('8EFF0D')("See the same 10 items, every day.\n"));
+	console.log(chalk.hex('#146eb4')(" Welcome to Bamazon."));
+	console.log(chalk.hex('#146eb4')(" See the same 10 items, every day.\n"));
 
 });
 
@@ -38,21 +38,21 @@ function displayInventory() {
     connection.query(queryStr, function (err, data) {
         if (err) throw err;
 
-        console.log("Existing Inventory:");
-        console.log("--------------------\n")
+        console.log(" Existing Inventory:");
+        console.log(chalk.hex('#760ce8')("---------------------------------------------------------------------\n"));
 
 
         for (var i = 0; i < data.length; i++) {
             var strOut = '';
-            strOut += 'Product ID: ' + data[i].product_id + ' // ';
-            strOut += 'Product Name: ' + data[i].product_name + ' // ';
-            strOut += 'Department: ' + data[i].department_name + ' // ';
-            strOut += 'Price: $' + data[i].price + '\n';
+            strOut += (chalk.hex('#ff9900')(' Product ID: ' + data[i].product_id + ' // '));
+            strOut += (chalk.hex('#ff9900')(' Product Name: ' + data[i].product_name + ' // '));
+            strOut += (chalk.hex('#ff9900')(' Department: ' + data[i].department_name + ' // '));
+            strOut += (chalk.hex('#ff9900')(' Price: $' + data[i].price + '\n'));
 
 
             console.log(strOut)
         }
-        console.log("---------------------------------------------------------------------\n");
+        console.log(chalk.hex('#760ce8')("---------------------------------------------------------------------\n"));
 
         promptPurchase();
     })
@@ -90,13 +90,13 @@ function promptPurchase() {
 
 
                 if (data.length === 0) {
-                    console.log("\nError: Please select valid item ID\n")
+                    console.log(chalk.hex('#FF0000')("\n Error: Please select valid item ID\n"));
                     displayInventory();
                 } else {
                     var productData = data[0];
 
                     if (quantity <= productData.stock_quantity) {
-                        console.log('\nThis item is in stock. Placing order now.\n');
+                        console.log(chalk.hex('#146eb4')('\n This item is in stock. Placing order now.\n'));
 
                         var updateQueryStr = 'UPDATE products SET stock_quantity = ' + (productData.stock_quantity - quantity) + ' WHERE product_id = ' + item;
 
@@ -104,9 +104,9 @@ function promptPurchase() {
                             if (err) throw err;
 
 
-                            console.log('Your total is $' + truncateNumber(productData.price * quantity, 2));
-                            console.log('\nThank you for shopping with Bamazon.');
-                            console.log("\n---------------------------------------------------------------------\n");
+                            console.log(chalk.hex('#146eb4')(' Your total is $' + truncateNumber(productData.price * quantity, 2)));
+                            console.log(chalk.hex('#146eb4')('\n Thank you for shopping with Bamazon.'));
+                            console.log(chalk.hex('#760ce8')("\n---------------------------------------------------------------------\n"));
 
                             connection.end()
 
@@ -114,9 +114,9 @@ function promptPurchase() {
                         });
 
                     } else {
-                        console.log('\nSorry, your cannot be placed. There is not enough product in stock.\n');
-                        console.log('Please modify your order.');
-                        console.log("\n---------------------------------------------------------------------\n");
+                        console.log(chalk.hex('#FF0000')('\n Sorry, your cannot be placed. There is not enough product in stock.\n'));
+                        console.log(chalk.hex('#FF0000')(' Please modify your order.'));
+                        console.log(chalk.hex('#760ce8')("\n---------------------------------------------------------------------\n"));
 
                         displayInventory();
                     }
