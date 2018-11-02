@@ -61,8 +61,8 @@ Bamazon is an Amazon-like store front that utilizes Node.js and MySQL. The app t
     - utilizes inquirer to prompt user to enter Item ID and quantity of items user is wanting to purchase
     - promise call runs series of if/else statements to check against errors, such as when a user enters wrong information into the inquirer prompts, or places an order that is too large and item is out of stock.
     - if all data entered is valid, stock_quantity is updated and total purchase price is displayed.
-    - App will display inventory if error is caught
-    - App will end if purchase is successful
+    - app will display inventory if error is caught
+    - app will end if purchase is successful
     
   - truncateNumber function
     - used to account for floating point edge cases. Two numbers will always display after the decimal.
