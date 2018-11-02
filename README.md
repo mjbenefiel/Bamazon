@@ -1,4 +1,4 @@
-<h1>Bamazon Node App</h1>
+<h1>Bamazon App</h1>
 
 
 <hr>
@@ -15,7 +15,7 @@ Feel free to use some or all of this code if you're trying to complete a similar
 <hr>
 
 <h2> Project overview</h2>
-Bamazon is an Amazon-like store front that utilizes MySQL. The app takes in orders from customers and depletes stock from the store's inventory.
+Bamazon is an Amazon-like store front that utilizes Node.js and MySQL. The app takes in orders from customers and depletes stock from the store's inventory.
 <hr>
 
 <h2> How it works </h2>
