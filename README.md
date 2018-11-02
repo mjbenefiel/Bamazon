@@ -24,11 +24,11 @@ Bamazon is an Amazon-like store front that utilizes Node.js and MySQL. The app t
 
 - The app will prompt users to enter the ID of the product they'd like to purchase, and then asks how many units they'd like to buy.
   
-- Once the customer has placed an order, the app will check with the database to verify if the store has enough product to meet the customer's request.
+- Once the user has placed an order, the app will check with the database to verify if the store has enough product to meet the user's request.
   
-- If not, the app will prevent the order from being processed and ask the customer to modify their order.
+- If not, the app will prevent the order from being processed and ask the user to modify their order.
 
-- The order will be processed if there is enough product. The SQL database will be updated to reflect the order. Once the update is successful, total purchase price will be displayed for the customer.
+- The order will be processed if there is enough product. The SQL database will be updated to reflect the order. Once the update is successful, total purchase price will be displayed for the user.
 <hr>
 
 <h2>Technology and packages used</h2>
