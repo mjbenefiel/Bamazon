@@ -45,8 +45,6 @@ Bamazon is an Amazon-like store front that utilizes Node.js and MySQL. The app t
 
 <h4>Below is a thorough, but not comprehensive, step-by-step process of how I got the app running in terms of code</h4>
 
-- Navigate to root of project. Initialize package.json by running ```npm init```
-
 - bamazon.sql
 
   - create database and table. Insert predetermined values into table.
