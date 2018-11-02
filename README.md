@@ -35,7 +35,7 @@ Bamazon is an Amazon-like store front that utilizes Node.js and MySQL. The app t
 
 [Node.js](https://nodejs.org/en/)
 
-[MySQL](https://www.npmjs.com/package/mysql)
+[MySQL](https://www.mysql.com)
 
 [Chalk](https://www.npmjs.com/package/chalk)
 
