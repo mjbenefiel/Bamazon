@@ -10,7 +10,7 @@ Feel free to use some or all of this code if you're trying to complete a similar
 
 <h3> App demo </h3>
 
-![alt text](https://raw.githubusercontent.com/mjbenefiel/Bamazon/master/gif/bamazondemo.gif "Constructor Word Guess Node App")
+![alt text](https://raw.githubusercontent.com/mjbenefiel/Bamazon/master/gif/bamazondemo.gif "Bamazon")
 
 <hr>
 
